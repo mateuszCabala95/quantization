@@ -1,0 +1,3 @@
+[workspace]
+members=["model_core", "trainer"]
+resolver = "2"

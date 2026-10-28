@@ -1,0 +1,19 @@
+# Rust build artifacts
+/target/
+
+# JetBrains IDEs (RustRover, IntelliJ IDEA, CLion)
+/.idea/
+*.iml
+
+# Other editors
+/.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local environment files
+.env
+.env.*
+!.env.example
