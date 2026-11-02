@@ -1,20 +1,14 @@
-use burn::backend::Backend;
 use burn::prelude::*;
 use burn::data::dataloader::batcher::Batcher;
 use crate::dataset::FashionMnistItem;
+use model_core::FashionMnistBatch;
 
-pub struct FashionMnistBatch{
-    pub images: Tensor<4>,
-    pub targets: Tensor<1, Int>,
-}
-
-pub struct FashionMnistBatcher{
-    device: Device,
-}
+#[derive(Clone)]
+pub struct FashionMnistBatcher;
 
 impl FashionMnistBatcher{
-    pub fn new(device: Device) -> Self{
-        Self {device}
+    pub fn new() -> Self{
+        Self {}
     }
 }
 
@@ -33,9 +27,9 @@ impl Batcher<FashionMnistItem, FashionMnistBatch> for FashionMnistBatcher{
         let images_data = TensorData::new(images_vec, [batch_size * 784]);
         let targets_data = TensorData::new(targets_vec, [batch_size]);
 
-        let images = Tensor::<1>::from_data(images_data, &self.device).reshape([batch_size, 1, 28, 28]) / 255.0;
+        let images = Tensor::<1>::from_data(images_data, device).reshape([batch_size, 1, 28, 28]) / 255.0;
 
-        let targets = Tensor::<1, Int>::from_data(targets_data, &self.device);
+        let targets = Tensor::<1, Int>::from_data(targets_data, device);
 
         FashionMnistBatch{
             images,
@@ -43,5 +37,3 @@ impl Batcher<FashionMnistItem, FashionMnistBatch> for FashionMnistBatcher{
         }
     }
 }
-
-

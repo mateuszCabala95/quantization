@@ -4,6 +4,10 @@ use burn::nn::{
     pool::{MaxPool2d, MaxPool2dConfig},
     Dropout, Linear, Relu, LinearConfig, DropoutConfig
 };
+use burn::nn::loss::CrossEntropyLossConfig;
+use burn::train::{ClassificationOutput, InferenceStep, TrainOutput, TrainStep};
+
+use crate::FashionMnistBatch;
 
 #[derive(Config, Debug)]
 pub struct TeacherCNNConfig {
@@ -65,5 +69,41 @@ impl TeacherCNN {
         let channel = self.dropout.forward(channel);
 
         self.linear2.forward(channel)
+    }
+}
+
+impl TrainStep for TeacherCNN {
+    type Input = FashionMnistBatch;
+    type Output = ClassificationOutput;
+
+    fn step(&self, item: Self::Input) -> TrainOutput<Self::Output> {
+        let prediction = self.forward(item.images);
+
+        let loss = CrossEntropyLossConfig::new()
+            .init(&prediction.device())
+            .forward(prediction.clone(), item.targets.clone());
+
+        let grads = loss.backward();
+
+        TrainOutput::new(
+            self,
+            grads,
+            ClassificationOutput::new(loss, prediction, item.targets)
+        )
+    }
+}
+
+impl InferenceStep for TeacherCNN {
+    type Input = FashionMnistBatch;
+    type Output = ClassificationOutput;
+
+    fn step(&self, item: Self::Input) -> Self::Output {
+        let prediction = self.forward(item.images);
+
+        let loss = CrossEntropyLossConfig::new()
+            .init(&prediction.device())
+            .forward(prediction.clone(), item.targets.clone());
+
+        ClassificationOutput::new(loss, prediction, item.targets)
     }
 }
