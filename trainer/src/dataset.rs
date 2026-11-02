@@ -36,3 +36,28 @@ impl Dataset<FashionMnistItem> for FashionMnistDataset{
         self.length
     }
 }
+
+impl FashionMnistDataset {
+    pub fn new(images_path: &str, labels_path: &str) -> std::io::Result<Self> {
+        let images_raw = std::fs::read(images_path)?;
+        let labels_raw = std::fs::read(labels_path)?;
+
+        let images = images_raw[16..].to_vec();
+        let labels = labels_raw[8..].to_vec();
+
+        let length = labels.len();
+
+        if images.len() != length * 784 {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                "Invalid file size",
+            ));
+        }
+
+        Ok(Self {
+            images,
+            labels,
+            length,
+        })
+    }
+}
