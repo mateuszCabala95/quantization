@@ -20,3 +20,6 @@ desktop.ini
 
 # Local dataset files
 /trainer/data/
+
+# Training artifacts
+/artifacts/
