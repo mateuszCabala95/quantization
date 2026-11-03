@@ -1,7 +1,8 @@
 use burn::data::dataset::{Dataset, DatasetError};
+use crate::constants::*;
 
 pub struct FashionMnistItem{
-    pub image: [u8; 784],
+    pub image: [u8; IMAGE_SIZE],
     pub label: u8
 }
 
@@ -47,7 +48,7 @@ impl FashionMnistDataset {
 
         let length = labels.len();
 
-        if images.len() != length * 784 {
+        if images.len() != length * IMAGE_SIZE {
             return Err(std::io::Error::new(
                 std::io::ErrorKind::InvalidData,
                 "Invalid file size",
