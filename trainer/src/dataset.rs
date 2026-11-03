@@ -1,6 +1,7 @@
 use burn::data::dataset::{Dataset, DatasetError};
 use crate::constants::*;
 
+#[derive(Clone, Debug)]
 pub struct FashionMnistItem{
     pub image: [u8; IMAGE_SIZE],
     pub label: u8
@@ -39,7 +40,10 @@ impl Dataset<FashionMnistItem> for FashionMnistDataset{
 }
 
 impl FashionMnistDataset {
-    pub fn new(images_path: &str, labels_path: &str) -> std::io::Result<Self> {
+    pub fn new(
+        images_path: impl AsRef<std::path::Path>,
+        labels_path: impl AsRef<std::path::Path>,
+    ) -> std::io::Result<Self> {
         let images_raw = std::fs::read(images_path)?;
         let labels_raw = std::fs::read(labels_path)?;
 
