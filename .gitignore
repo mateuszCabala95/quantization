@@ -19,4 +19,4 @@ desktop.ini
 !.env.example
 
 # Local dataset files
-/data/
+/trainer/data/
