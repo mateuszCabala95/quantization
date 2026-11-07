@@ -21,5 +21,8 @@ desktop.ini
 # Local dataset files
 /trainer/data/
 
-# Training artifacts
-/artifacts/
+# Training artifacts: keep only teacher experiment summaries
+/artifacts/*
+/artifacts/**/*
+!/artifacts/**/
+!/artifacts/**/teacher_cnn_*_*.json
