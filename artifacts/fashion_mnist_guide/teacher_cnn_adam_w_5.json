@@ -1,0 +1,18 @@
+{
+  "experiment_name": "teacher_cnn_adam_w",
+  "device": "Device<Autodiff { device: Cube(Wgpu(WgpuDevice { kind: DefaultDevice, backend: Auto })), checkpointing: Disabled }>",
+  "hyperparameters": {
+    "epochs": 5,
+    "batch_size": 64,
+    "learning_rate": 0.0003,
+    "optimizer": "AdamW",
+    "workers": 4,
+    "seed": 4021
+  },
+  "results": {
+    "training_time_seconds": 64.5477869,
+    "final_valid_accuracy": 0.8454,
+    "final_valid_loss": 0.4200616657733917
+  },
+  "model_path": "./artifacts/fashion_mnist_guide/model"
+}

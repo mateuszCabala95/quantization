@@ -6852,6 +6852,8 @@ version = "0.1.0"
 dependencies = [
  "burn",
  "model_core",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

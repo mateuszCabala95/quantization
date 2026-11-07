@@ -1,0 +1,18 @@
+{
+  "experiment_name": "teacher_cnn_sgd",
+  "device": "Device<Autodiff { device: Cube(Wgpu(WgpuDevice { kind: DefaultDevice, backend: Auto })), checkpointing: Disabled }>",
+  "hyperparameters": {
+    "epochs": 5,
+    "batch_size": 64,
+    "learning_rate": 0.0003,
+    "optimizer": "SGD",
+    "workers": 4,
+    "seed": 4021
+  },
+  "results": {
+    "training_time_seconds": 61.8659397,
+    "final_valid_accuracy": 0.764,
+    "final_valid_loss": 0.6097809651374817
+  },
+  "model_path": "./artifacts/fashion_mnist_guide/model"
+}
